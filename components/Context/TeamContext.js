@@ -125,7 +125,11 @@ export default function TeamProvider({ children }) {
         100
       ),
       ftScore: Math.min(
-        parseInt((freeThrowPctAverage / LEAGUE_HIGHS.ft) * 100),
+        parseInt(
+          freeThrowPctAverage === 0
+            ? 0
+            : (((freeThrowPctAverage - 0.45) * 2) / LEAGUE_HIGHS.ft) * 100
+        ),
         100
       ),
       rebScore: Math.min(

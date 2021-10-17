@@ -13,7 +13,7 @@ import { useDebounce } from "@react-hook/debounce";
 import DATA_PLAYERS from "../../data/players.js";
 
 export default function SearchModalPlayer({ isOpen, onClose }) {
-  const [searchQuery, setSearchQuery] = useDebounce("", 500);
+  const [searchQuery, setSearchQuery] = useDebounce("", 200);
   const [resultPlayers, setResultPlayers] = useState(DATA_PLAYERS.slice(0, 20));
 
   useEffect(() => {
