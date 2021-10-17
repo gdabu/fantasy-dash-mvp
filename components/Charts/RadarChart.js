@@ -3,32 +3,6 @@ import { Radar } from "react-chartjs-2";
 
 import { useTeamStatsContext } from "../Context/TeamContext";
 
-const data = {
-  labels: [
-    "Points",
-    "3Pts",
-    "Assists",
-    "Rebounds",
-    "Steals",
-    "Blocks",
-    "FT%",
-    "FG%",
-    "Turnovers",
-  ],
-  datasets: [
-    {
-      label: "stats",
-      backgroundColor: "rgba(179,181,198,0.2)",
-      borderColor: "rgba(179,181,198,1)",
-      pointBackgroundColor: "rgba(179,181,198,1)",
-      pointBorderColor: "#fff",
-      pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(179,181,198,1)",
-      data: [50, 60, 50, 60, 50, 60, 50, 60, 70],
-    },
-  ],
-};
-
 export default function RadarChart() {
   const teamStats = useTeamStatsContext();
   return (
@@ -82,8 +56,8 @@ export default function RadarChart() {
             angleLines: {
               display: false,
             },
-            suggestedMin: 0,
-            suggestedMax: 100,
+            min: 0,
+            max: 100,
           },
         },
       }}

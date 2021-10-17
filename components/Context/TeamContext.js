@@ -100,18 +100,46 @@ export default function TeamProvider({ children }) {
       reb: reboundsAverage,
       to: turnOversAverage,
 
-      ptsScore: ((pointsAverage / LEAGUE_HIGHS.pts) * 100).toFixed(1),
-      thrPtScore: ((threePtsAverage / LEAGUE_HIGHS.thrPt) * 100).toFixed(1),
-      stlScore: ((stealsAverage / LEAGUE_HIGHS.stl) * 100).toFixed(1),
-      astScore: ((assistsAverage / LEAGUE_HIGHS.ast) * 100).toFixed(1),
-      blkScore: ((blocksAverage / LEAGUE_HIGHS.blk) * 100).toFixed(1),
-      fgScore: ((fieldGoalPctAverage / LEAGUE_HIGHS.fg) * 100).toFixed(1),
-      ftScore: ((freeThrowPctAverage / LEAGUE_HIGHS.ft) * 100).toFixed(1),
-      rebScore: ((reboundsAverage / LEAGUE_HIGHS.reb) * 100).toFixed(1),
-      toScore: (turnOversAverage === 0
-        ? 0.0
-        : (LEAGUE_HIGHS.to / turnOversAverage) * 100
-      ).toFixed(1),
+      ptsScore: Math.min(
+        parseInt((pointsAverage / LEAGUE_HIGHS.pts) * 100),
+        100
+      ),
+      thrPtScore: Math.min(
+        parseInt((threePtsAverage / LEAGUE_HIGHS.thrPt) * 100),
+        100
+      ),
+      stlScore: Math.min(
+        parseInt((stealsAverage / LEAGUE_HIGHS.stl) * 100),
+        100
+      ),
+      astScore: Math.min(
+        parseInt((assistsAverage / LEAGUE_HIGHS.ast) * 100),
+        100
+      ),
+      blkScore: Math.min(
+        parseInt((blocksAverage / LEAGUE_HIGHS.blk) * 100),
+        100
+      ),
+      fgScore: Math.min(
+        parseInt((fieldGoalPctAverage / LEAGUE_HIGHS.fg) * 100),
+        100
+      ),
+      ftScore: Math.min(
+        parseInt((freeThrowPctAverage / LEAGUE_HIGHS.ft) * 100),
+        100
+      ),
+      rebScore: Math.min(
+        parseInt((reboundsAverage / LEAGUE_HIGHS.reb) * 100),
+        100
+      ),
+      toScore: Math.min(
+        parseInt(
+          turnOversAverage === 0
+            ? 0
+            : (LEAGUE_HIGHS.to / turnOversAverage) * 100
+        ),
+        100
+      ),
     });
   }
 
@@ -132,7 +160,7 @@ export default function TeamProvider({ children }) {
         parseFloat(stats.toScore)) /
       9;
 
-    setOverallScore(updatedScore && updatedScore.toFixed(2));
+    setOverallScore(parseInt(updatedScore));
   }, [stats]);
 
   return (

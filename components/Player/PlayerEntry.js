@@ -83,7 +83,7 @@ export default function PlayerEntry({
         }}
       >
         <IconButton
-          colorScheme={playerButton === "ADD" ? "green" : "red"}
+          colorScheme={playerButton === "ADD" ? "teal" : "red"}
           aria-label={playerButton === "ADD" ? "Add Player" : "Remove Player"}
           icon={playerButton === "ADD" ? <AddIcon /> : <DeleteIcon />}
         ></IconButton>

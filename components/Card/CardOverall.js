@@ -8,7 +8,7 @@ export default function CardOverall() {
   const teamOverallScore = useTeamOverallScoreContext();
 
   return (
-    <CardTitled title="overall">
+    <CardTitled title="overall score">
       <Text fontSize="6xl">{teamOverallScore}</Text>
     </CardTitled>
   );

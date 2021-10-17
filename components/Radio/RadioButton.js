@@ -20,15 +20,8 @@ export function RadioButton(props) {
         {...checkbox}
         cursor="pointer"
         borderWidth="1px"
-        borderRadius="md"
-        boxShadow="md"
         _checked={{
-          bg: "teal.600",
-          color: "white",
-          borderColor: "teal.600",
-        }}
-        _focus={{
-          boxShadow: "outline",
+          bg: "gray.300",
         }}
         px={5}
         py={3}

@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { RadioButton } from "../Radio/RadioButton";
 import CardTitled from "./CardTitled";
 
+import styles from "./CardStats.module.css";
+
 import { useTeamStatsContext } from "../Context/TeamContext";
 
 export default function CardStats() {
@@ -23,7 +25,7 @@ export default function CardStats() {
 
   return (
     <CardTitled title="stats">
-      <HStack {...group}>
+      <HStack {...group} className={styles.containerRadioToggle}>
         {options.map((value) => {
           const radio = getRadioProps({ value });
           return (
