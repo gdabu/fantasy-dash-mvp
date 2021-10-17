@@ -54,7 +54,12 @@ export default function PlayerEntry({
       style={{ gap: "0.6rem" }}
       w="100%"
     >
-      <Avatar alignSelf="flex-start"></Avatar>
+      <Avatar
+        alignSelf="flex-start"
+        src={`https://nba-players.herokuapp.com/players/${name.split(" ")[1]}/${
+          name.split(" ")[0]
+        }`}
+      ></Avatar>
       <Box alignSelf="flex-start">
         <Text fontWeight="Bold">{name}</Text>
         <Text fontSize="sm">
