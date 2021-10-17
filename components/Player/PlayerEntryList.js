@@ -4,20 +4,13 @@ import PlayerEntry from "./PlayerEntry";
 
 export default function PlayerEntryList({
   players = [],
-  setTeamPlayers,
-  teamPlayers,
+  playerButton = "ADD",
 }) {
   return (
     <VStack spacing={3}>
       {players.map((player) => {
         return (
-          <PlayerEntry
-            name={player.name}
-            pos={player.pos}
-            team={player.team}
-            teamPlayers={teamPlayers}
-            setTeamPlayers={setTeamPlayers}
-          ></PlayerEntry>
+          <PlayerEntry {...player} playerButton={playerButton}></PlayerEntry>
         );
       })}
     </VStack>

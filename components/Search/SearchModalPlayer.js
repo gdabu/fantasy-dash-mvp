@@ -19,11 +19,11 @@ export default function SearchModalPlayer({
   setTeamPlayers,
 }) {
   const [searchQuery, setSearchQuery] = useDebounce("", 500);
-  const [resultPlayers, setResultPlayers] = useState(DATA_PLAYERS.slice(0, 9));
+  const [resultPlayers, setResultPlayers] = useState(DATA_PLAYERS.slice(0, 20));
 
   useEffect(() => {
     if (searchQuery === "") {
-      setResultPlayers(DATA_PLAYERS.slice(0, 9));
+      setResultPlayers(DATA_PLAYERS.slice(0, 20));
       return;
     }
 
@@ -45,11 +45,7 @@ export default function SearchModalPlayer({
           ></SearchInputPlayer>
         </ModalHeader>
         <ModalBody>
-          <PlayerEntryList
-            players={resultPlayers}
-            teamPlayers={teamPlayers}
-            setTeamPlayers={setTeamPlayers}
-          ></PlayerEntryList>
+          <PlayerEntryList players={resultPlayers}></PlayerEntryList>
         </ModalBody>
       </ModalContent>
     </Modal>

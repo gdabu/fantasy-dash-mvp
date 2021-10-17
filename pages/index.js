@@ -18,20 +18,9 @@ import CardChart from "../components/Card/CardChart";
 import CardStats from "../components/Card/CardStats";
 import CardOverall from "../components/Card/CardOverall";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { Button } from "@chakra-ui/button";
-import {
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-} from "@chakra-ui/modal";
-import SearchInputPlayer from "../components/Search/SearchInputPlayer";
-import PlayerEntry from "../components/Player/PlayerEntry";
 import SearchModalPlayer from "../components/Search/SearchModalPlayer";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import TeamContext from "../components/Context/TeamContext";
 
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -45,36 +34,36 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <SearchModalPlayer
-        isOpen={isOpen}
-        onClose={onClose}
-        teamPlayers={teamPlayers}
-        setTeamPlayers={setTeamPlayers}
-      ></SearchModalPlayer>
+      <TeamContext>
+        <SearchModalPlayer
+          isOpen={isOpen}
+          onClose={onClose}
+        ></SearchModalPlayer>
 
-      <Container as="main" maxW="1600px">
-        <NavbarMain openModal={onOpen}></NavbarMain>
-        <Grid
-          p={5}
-          h="100vh"
-          templateRows="repeat(2, 1fr)"
-          templateColumns="repeat(3, 1fr)"
-          gap={4}
-        >
-          <GridItem rowSpan={2} colSpan={1}>
-            <CardTeam teamPlayers={teamPlayers}></CardTeam>
-          </GridItem>
-          <GridItem colSpan={1}>
-            <CardChart />
-          </GridItem>
-          <GridItem rowSpan={2} colSpan={1}>
-            <CardStats></CardStats>
-          </GridItem>
-          <GridItem colSpan={1}>
-            <CardOverall></CardOverall>
-          </GridItem>
-        </Grid>
-      </Container>
+        <Container as="main" maxW="1600px">
+          <NavbarMain openModal={onOpen}></NavbarMain>
+          <Grid
+            p={5}
+            h="100vh"
+            templateRows="repeat(2, 1fr)"
+            templateColumns="repeat(3, 1fr)"
+            gap={4}
+          >
+            <GridItem rowSpan={2} colSpan={1}>
+              <CardTeam></CardTeam>
+            </GridItem>
+            <GridItem colSpan={1}>
+              <CardChart />
+            </GridItem>
+            <GridItem rowSpan={2} colSpan={1}>
+              <CardStats></CardStats>
+            </GridItem>
+            <GridItem colSpan={1}>
+              <CardOverall></CardOverall>
+            </GridItem>
+          </Grid>
+        </Container>
+      </TeamContext>
     </>
   );
 }

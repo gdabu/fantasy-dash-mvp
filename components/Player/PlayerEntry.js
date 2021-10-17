@@ -1,16 +1,50 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { IconButton } from "@chakra-ui/button";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import React from "react";
+
+// import TeamProvider from "../Context/TeamContext";
+
+import {
+  useTeamAdd,
+  useTeamRemove,
+  useTeamContext,
+} from "../Context/TeamContext";
 
 export default function PlayerEntry({
   name,
   pos,
   team,
+
+  gp,
+  mpg,
+  fg,
+  ft,
+  thrPt,
+  pts,
+  reb,
+  ast,
+  stl,
+  blk,
+  to,
   teamPlayers,
   setTeamPlayers,
+  playerButton,
 }) {
+  const teamContext = useTeamContext();
+  const addPlayer = useTeamAdd();
+  const removePlayer = useTeamRemove();
+
+  const updatePlayer =
+    playerButton === "ADD"
+      ? (player) => {
+          addPlayer(player);
+        }
+      : (player) => {
+          removePlayer(player);
+        };
+
   return (
     <Flex
       background="gray.100"
@@ -30,13 +64,28 @@ export default function PlayerEntry({
       <Box
         marginLeft="auto"
         onClick={() => {
-          setTeamPlayers(teamPlayers.concat([{ name, pos: pos, team: team }]));
+          updatePlayer({
+            name,
+            pos,
+            team,
+            gp,
+            mpg,
+            fg,
+            ft,
+            thrPt,
+            pts,
+            reb,
+            ast,
+            stl,
+            blk,
+            to,
+          });
         }}
       >
         <IconButton
-          colorScheme="red"
-          aria-label="Remove Player"
-          icon={<DeleteIcon />}
+          colorScheme={playerButton === "ADD" ? "green" : "red"}
+          aria-label={playerButton === "ADD" ? "Add Player" : "Remove Player"}
+          icon={playerButton === "ADD" ? <AddIcon /> : <DeleteIcon />}
         ></IconButton>
       </Box>
     </Flex>
