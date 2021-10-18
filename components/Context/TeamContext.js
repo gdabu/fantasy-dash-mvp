@@ -172,14 +172,14 @@ export default function TeamProvider({ children }) {
               leagueCalculations.average.reb,
               leagueCalculations.stdDev.reb
             ),
-      toScore:
-        turnOversAverage === 0
-          ? 0
-          : getZPercent(
-              turnOversAverage,
-              leagueCalculations.average.to,
-              leagueCalculations.stdDev.to
-            ),
+      toScore: Math.min(
+        parseInt(
+          turnOversAverage === 0
+            ? 0
+            : (LEAGUE_HIGHS.to / turnOversAverage) * 100
+        ),
+        100
+      ),
     });
   }
 
