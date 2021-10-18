@@ -1,12 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 
 import { HIGHS as LEAGUE_HIGHS } from "../../data/stats";
+import { getStatsStdDeviation, getZPercent } from "../../util/calculations";
 
 const TeamContext = React.createContext();
 const TeamAddPlayerContext = React.createContext();
 const TeamRemovePlayerContext = React.createContext();
 const TeamOverallScoreContext = React.createContext();
 const TeamContextStats = React.createContext();
+
+import DATA_PLAYERS from "../../data/players";
+
+// useEffect(() => {
+//   getStatsStdDeviation(DATA_PLAYERS);
+// }, []);
 
 export function useTeamContext() {
   return useContext(TeamContext);
@@ -100,50 +107,79 @@ export default function TeamProvider({ children }) {
       reb: reboundsAverage,
       to: turnOversAverage,
 
-      ptsScore: Math.min(
-        parseInt((pointsAverage / LEAGUE_HIGHS.pts) * 100),
-        100
-      ),
-      thrPtScore: Math.min(
-        parseInt((threePtsAverage / LEAGUE_HIGHS.thrPt) * 100),
-        100
-      ),
-      stlScore: Math.min(
-        parseInt((stealsAverage / LEAGUE_HIGHS.stl) * 100),
-        100
-      ),
-      astScore: Math.min(
-        parseInt((assistsAverage / LEAGUE_HIGHS.ast) * 100),
-        100
-      ),
-      blkScore: Math.min(
-        parseInt((blocksAverage / LEAGUE_HIGHS.blk) * 100),
-        100
-      ),
-      fgScore: Math.min(
-        parseInt((fieldGoalPctAverage / LEAGUE_HIGHS.fg) * 100),
-        100
-      ),
-      ftScore: Math.min(
-        parseInt(
-          freeThrowPctAverage === 0
-            ? 0
-            : (((freeThrowPctAverage - 0.45) * 2) / LEAGUE_HIGHS.ft) * 100
-        ),
-        100
-      ),
-      rebScore: Math.min(
-        parseInt((reboundsAverage / LEAGUE_HIGHS.reb) * 100),
-        100
-      ),
-      toScore: Math.min(
-        parseInt(
-          turnOversAverage === 0
-            ? 0
-            : (LEAGUE_HIGHS.to / turnOversAverage) * 100
-        ),
-        100
-      ),
+      ptsScore:
+        pointsAverage === 0
+          ? 0
+          : getZPercent(
+              pointsAverage,
+              leagueCalculations.average.pts,
+              leagueCalculations.stdDev.pts
+            ),
+      thrPtScore:
+        threePtsAverage === 0
+          ? 0
+          : getZPercent(
+              threePtsAverage,
+              leagueCalculations.average.thrPt,
+              leagueCalculations.stdDev.thrPt
+            ),
+      stlScore:
+        stealsAverage === 0
+          ? 0
+          : getZPercent(
+              stealsAverage,
+              leagueCalculations.average.stl,
+              leagueCalculations.stdDev.stl
+            ),
+      astScore:
+        assistsAverage === 0
+          ? 0
+          : getZPercent(
+              assistsAverage,
+              leagueCalculations.average.ast,
+              leagueCalculations.stdDev.ast
+            ),
+      blkScore:
+        blocksAverage === 0
+          ? 0
+          : getZPercent(
+              blocksAverage,
+              leagueCalculations.average.blk,
+              leagueCalculations.stdDev.blk
+            ),
+      fgScore:
+        fieldGoalPctAverage === 0
+          ? 0
+          : getZPercent(
+              fieldGoalPctAverage,
+              leagueCalculations.average.fg,
+              leagueCalculations.stdDev.fg
+            ),
+      ftScore:
+        freeThrowPctAverage === 0
+          ? 0
+          : getZPercent(
+              freeThrowPctAverage,
+              leagueCalculations.average.ft,
+              leagueCalculations.stdDev.ft
+            ),
+
+      rebScore:
+        reboundsAverage === 0
+          ? 0
+          : getZPercent(
+              reboundsAverage,
+              leagueCalculations.average.reb,
+              leagueCalculations.stdDev.reb
+            ),
+      toScore:
+        turnOversAverage === 0
+          ? 0
+          : getZPercent(
+              turnOversAverage,
+              leagueCalculations.average.to,
+              leagueCalculations.stdDev.to
+            ),
     });
   }
 
@@ -166,6 +202,10 @@ export default function TeamProvider({ children }) {
 
     setOverallScore(parseInt(updatedScore));
   }, [stats]);
+
+  const [leagueCalculations, setLeagueCalculations] = useState(
+    getStatsStdDeviation(DATA_PLAYERS)
+  );
 
   return (
     <TeamContext.Provider value={team}>

@@ -19,12 +19,18 @@ import CardStats from "../components/Card/CardStats";
 import CardOverall from "../components/Card/CardOverall";
 import { useDisclosure } from "@chakra-ui/hooks";
 import SearchModalPlayer from "../components/Search/SearchModalPlayer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TeamContext from "../components/Context/TeamContext";
+
+import { getStatsStdDeviation } from "../util/calculations";
 
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [teamPlayers, setTeamPlayers] = useState([]);
+
+  // useEffect(() => {
+  //   getStatsStdDeviation(DATA_PLAYERS);
+  // }, []);
 
   return (
     <>
