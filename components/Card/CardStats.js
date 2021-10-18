@@ -42,7 +42,7 @@ export default function CardStats() {
         })}
       </HStack>
 
-      <SimpleGrid columns={[2, 1, 1, 3, 4]}>
+      <SimpleGrid columns={[2, 1, 1, 3]}>
         <Stat p={2}>
           <StatNumber>
             {statDisplayType === "SCORE" ? teamStats.ptsScore : teamStats.pts}
@@ -85,20 +85,20 @@ export default function CardStats() {
           <StatNumber>
             {statDisplayType === "SCORE" ? teamStats.fgScore : teamStats.fg}
           </StatNumber>
-          <StatLabel>Field Goals %</StatLabel>
+          <StatLabel>FG %</StatLabel>
         </Stat>
         <Stat p={2}>
           <StatNumber>
             {statDisplayType === "SCORE" ? teamStats.ftScore : teamStats.ft}
           </StatNumber>
-          <StatLabel>Free Throw %</StatLabel>
+          <StatLabel>FT %</StatLabel>
         </Stat>
 
         <Stat p={2}>
           <StatNumber>
             {statDisplayType === "SCORE" ? teamStats.toScore : teamStats.to}
           </StatNumber>
-          <StatLabel>Turn overs</StatLabel>
+          <StatLabel>Turnovers</StatLabel>
         </Stat>
       </SimpleGrid>
     </CardTitled>
