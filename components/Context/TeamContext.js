@@ -98,6 +98,7 @@ export default function TeamProvider({ children }) {
       fieldGoalPctAverage = (fieldGoalPctTotal / rosterSize).toFixed(2);
       freeThrowPctAverage = (freeThrowPctTotal / rosterSize).toFixed(2);
       reboundsAverage = (reboundsTotal / rosterSize).toFixed(1);
+      turnOversAverage = (turnOversTotal / rosterSize).toFixed(1);
       turnOversNormalizedAverage = (
         turnOversNormalizedTotal / rosterSize
       ).toFixed(1);
