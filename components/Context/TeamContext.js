@@ -63,6 +63,7 @@ export default function TeamProvider({ children }) {
       freeThrowPctTotal = 0,
       reboundsTotal = 0,
       turnOversTotal = 0,
+      turnOversNormalizedTotal = 0,
       pointsAverage = 0,
       threePtsAverage = 0,
       stealsAverage = 0,
@@ -71,7 +72,8 @@ export default function TeamProvider({ children }) {
       fieldGoalPctAverage = 0,
       freeThrowPctAverage = 0,
       reboundsAverage = 0,
-      turnOversAverage = 0;
+      turnOversAverage = 0,
+      turnOversNormalizedAverage = 0;
     const rosterSize = roster.length;
 
     roster.forEach((player) => {
@@ -84,6 +86,9 @@ export default function TeamProvider({ children }) {
       freeThrowPctTotal += parseFloat(player.ft);
       reboundsTotal += parseFloat(player.reb);
       turnOversTotal += parseFloat(player.to);
+      turnOversNormalizedTotal += parseFloat(
+        leagueCalculations.min.to + leagueCalculations.max.to - player.to
+      );
 
       pointsAverage = (pointsTotal / rosterSize).toFixed(1);
       threePtsAverage = (threePtsTotal / rosterSize).toFixed(1);
@@ -93,7 +98,9 @@ export default function TeamProvider({ children }) {
       fieldGoalPctAverage = (fieldGoalPctTotal / rosterSize).toFixed(2);
       freeThrowPctAverage = (freeThrowPctTotal / rosterSize).toFixed(2);
       reboundsAverage = (reboundsTotal / rosterSize).toFixed(1);
-      turnOversAverage = (turnOversTotal / rosterSize).toFixed(1);
+      turnOversNormalizedAverage = (
+        turnOversNormalizedTotal / rosterSize
+      ).toFixed(1);
     });
 
     setStats({
@@ -173,12 +180,13 @@ export default function TeamProvider({ children }) {
               leagueCalculations.stdDev.reb
             ),
       toScore: Math.min(
-        parseInt(
-          turnOversAverage === 0
-            ? 0
-            : (LEAGUE_HIGHS.to / turnOversAverage) * 100
-        ),
-        100
+        turnOversNormalizedAverage === 0
+          ? 0
+          : getZPercent(
+              turnOversNormalizedAverage,
+              leagueCalculations.average.to,
+              leagueCalculations.stdDev.to
+            )
       ),
     });
   }

@@ -13,6 +13,7 @@ export function getStatsStdDeviation(players) {
     stl: [],
     blk: [],
     to: [],
+    toNormalized: [],
   };
 
   let statTotals = {
@@ -27,6 +28,7 @@ export function getStatsStdDeviation(players) {
     stl: 0,
     blk: 0,
     to: 0,
+    toNormalized: 0,
   };
 
   players.forEach((item) => {
@@ -55,6 +57,14 @@ export function getStatsStdDeviation(players) {
     statTotals.to += parseFloat(item.to);
   });
 
+  const minTo = Math.min(...stats.to);
+  const maxTo = Math.max(...stats.to);
+
+  stats.to = stats.to.map((to) => {
+    return maxTo + minTo - to;
+  });
+
+  /*
   const stdDevGp = std(stats.gp);
   const stdDevMpg = std(stats.mpg);
   const stdDevFg = std(stats.fg);
@@ -78,9 +88,16 @@ export function getStatsStdDeviation(players) {
   const avgStl = statTotals.stl / players.length;
   const avgBlk = statTotals.blk / players.length;
   const avgTo = statTotals.to / players.length;
+	*/
 
   return {
-    average: {
+    min: {
+      to: minTo,
+    },
+    max: {
+      to: maxTo,
+    },
+    stdDev: {
       gp: std(stats.gp),
       mpg: std(stats.mpg),
       fg: std(stats.fg),
@@ -93,7 +110,7 @@ export function getStatsStdDeviation(players) {
       blk: std(stats.blk),
       to: std(stats.to),
     },
-    stdDev: {
+    average: {
       gp: statTotals.gp / players.length,
       mpg: statTotals.mpg / players.length,
       fg: statTotals.fg / players.length,
