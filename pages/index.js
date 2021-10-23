@@ -55,20 +55,20 @@ export default function Home() {
           <Grid
             p={5}
             h="100vh"
-            templateRows="repeat(2, 1fr)"
-            templateColumns="repeat(3, 1fr)"
+            templateRows={[null, null, "repeat(2, 1fr)"]}
+            templateColumns={[null, null, "repeat(3, 1fr)"]}
             gap={4}
           >
-            <GridItem rowSpan={2} colSpan={1}>
+            <GridItem rowSpan={2} colSpan={1} maxW={"100%"}>
               <CardTeam></CardTeam>
             </GridItem>
-            <GridItem colSpan={1}>
+            <GridItem colSpan={1} maxW={"100%"}>
               <CardChart />
             </GridItem>
-            <GridItem rowSpan={2} colSpan={1}>
+            <GridItem rowSpan={2} colSpan={1} maxW={"100%"}>
               <CardStats></CardStats>
             </GridItem>
-            <GridItem colSpan={1}>
+            <GridItem colSpan={1} maxW={"100%"}>
               <CardOverall></CardOverall>
             </GridItem>
           </Grid>

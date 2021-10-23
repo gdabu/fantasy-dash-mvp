@@ -42,7 +42,7 @@ export default function CardStats() {
         })}
       </HStack>
 
-      <SimpleGrid columns={[2, 1, 1, 3]}>
+      <SimpleGrid columns={[2, 3, 1, 3]}>
         <Stat p={2}>
           <StatNumber>
             {statDisplayType === "SCORE" ? teamStats.ptsScore : teamStats.pts}
