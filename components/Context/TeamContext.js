@@ -38,7 +38,15 @@ export function useTeamOverallScoreContext() {
 export default function TeamProvider({ children }) {
   const [team, setTeam] = useState([]);
 
+  function checkIfPlayerExistsInTeam(player) {
+    return !!team.find((teamPlayer) => {
+      return player.name === teamPlayer.name;
+    });
+  }
+
   function addPlayer(player) {
+    if (checkIfPlayerExistsInTeam(player)) return;
+
     setTeam([...team, player]);
   }
 
