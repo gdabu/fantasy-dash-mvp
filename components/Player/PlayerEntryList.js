@@ -5,6 +5,7 @@ import PlayerEntry from "./PlayerEntry";
 export default function PlayerEntryList({
   players = [],
   playerButton = "ADD",
+  disablePlayers = false,
 }) {
   return (
     <VStack spacing={3}>
