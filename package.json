@@ -17,6 +17,7 @@
     "@emotion/styled": "^11",
     "@react-hook/debounce": "^4.0.0",
     "apexcharts": "^3.29.0",
+    "axios": "^0.26.1",
     "chart.js": "^3.5.1",
     "emotion-theming": "^11.0.0",
     "framer-motion": "^4",
